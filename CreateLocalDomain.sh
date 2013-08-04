@@ -1,17 +1,15 @@
 #!/bin/bash 
 
-
-
 # You need sudo for this stuff...
 if [ "$(whoami)" != "root" ]; then
   echo "You should probably run this with sudo."
   exit 1
 fi
 
-
 echo Type in the name of the domain you would like to create \(without a TLD!\)
 read domain
 
+# @TODO validate pathing?
 echo Type in the local path where this site will live \(ie /Users/Me/Sites/$domain\)
 read DocumentRoot
 
@@ -25,15 +23,10 @@ vhostsConf=""
 
 case $usingMAMP in
   y) 
-    echo "Please try again" 
     vhostsConf="/Applications/MAMP/conf/apache/vhosts.conf" ;;
   n) 
     vhostsConf="/etc/apache2/extra/httpd-vhosts.conf" ;;
 esac
-
-# echo $hosts
-# echo $vhostsConf
-# Write to the hosts file
 
 if [ hosts != "" ]; then
   
@@ -50,6 +43,7 @@ fi
 # Restart Apache
 sudo apachectl restart
 
+# @TODO help MAMPists out. 
 #/Applications/MAMP/bin/apache2/bin/apachectl restart
 #
 ##edit httpd.conf foro MAMP
